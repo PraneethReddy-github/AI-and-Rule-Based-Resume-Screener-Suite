@@ -5,30 +5,7 @@ A comprehensive dual-architecture platform for automated resume screening, ranki
 1. **Rule-Based Screener (Browser-Only)**: A fully private, deterministic keyword-matching application running entirely in the client-side browser sandbox.
 2. **AI-Powered Screener (Node + SQLite + Gemini)**: A contextual evaluation pipeline powered by Google Gemini, complete with an interactive conversational recruiting agent.
 
----
 
-## Technical Architecture
-
-```mermaid
-graph TD
-    subgraph Client-Side (Rule-Based Screener)
-        R_UI[React UI / Tailwind] -->|Upload File| R_Parser[pdf.js & mammoth.js]
-        R_Parser -->|Raw Text| R_Engine[Deterministic Heuristics Engine]
-        R_Engine -->|Ranking & Scoring| R_Store[Zustand Store]
-        R_Store -->|Persistence| R_DB[IndexedDB Store]
-    end
-
-    subgraph Client-Server (AI-Powered Screener)
-        A_UI[React UI] -->|Upload Resumes| A_Server[Node.js Express Server]
-        A_Server -->|Text Extraction| A_Parser[pdf.js & mammoth.js]
-        A_Server -->|JSON Prompt Rubric| Gemini[Google Gemini API]
-        A_Server -->|Save Evaluation| SQL[SQLite Database]
-        A_Server -->|Multi-Turn Chat| Agent[Conversational Recruiter Agent]
-        A_UI -->|Query Candidates| Agent
-    end
-```
-
----
 
 ## 1. Rule-Based Screener (Client-Only)
 
